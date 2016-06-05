@@ -2,7 +2,14 @@
 A virtual screen implementation for the Pebble smartwatch.
 
 Use this library to test the layout for large screens (e.g. Pebble Time 2) on smaller screens (e.g. Pebble Time).
+
+There are two modes available:
+
+1) direct
 The large screen is centered on the position the watch has when the app starts. You can scroll the screen around by moving the watch.
+
+2) auto
+The large screen is autmatically moved to the next corner every second.
 
 To use a virtual screen you just have to use the `Layer` returned by `virtual_screen_init` instead of the root layer you normally use.
 If you use `graphics_capture_frame_buffer` to modify the framebuffer you also have to manually apply the offset returned by `virtual_screen_get_offset`.
@@ -16,6 +23,7 @@ Usage example:
     #include <virtual_screen.h>
     #define VIRTUAL_SCREEN_SIZE_W 200
     #define VIRTUAL_SCREEN_SIZE_H 228
+    #define VIRTUAL_SCREEN_MODE VIRTUAL_SCREEN_MODE_AUTO
     #endif // EMERY_TEST
 
     static void my_window_load(Window *window) {
@@ -24,7 +32,7 @@ Usage example:
 
     #ifdef VIRTUAL_SCREEN
       Layer* real_root = root_layer;
-      root_layer = virtual_screen_init(root_layer_bounds, GSize(VIRTUAL_SCREEN_SIZE_W, VIRTUAL_SCREEN_SIZE_H));
+      root_layer = virtual_screen_init(root_layer_bounds, GSize(VIRTUAL_SCREEN_SIZE_W, VIRTUAL_SCREEN_SIZE_H), VIRTUAL_SCREEN_MODE);
       root_layer_bounds = layer_get_bounds(root_layer);
     #endif // VIRTUAL_SCREEN
 
