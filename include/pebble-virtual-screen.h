@@ -1,5 +1,4 @@
 #pragma once
-#include <pebble.h>
 
 #define VIRTUAL_SCREEN
 

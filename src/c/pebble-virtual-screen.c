@@ -1,4 +1,5 @@
-#include <virtual_screen.h>
+#include <pebble.h>
+#include "pebble-virtual-screen.h"
 
 #define VIRTUAL_SCREEN_UPDATE_SENSITIVITY 5
 #define VIRTUAL_SCREEN_UPDATE_TIMEOUT_MS 50
