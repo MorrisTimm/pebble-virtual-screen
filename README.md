@@ -1,14 +1,14 @@
-# virtual-screen
+# pebble-virtual-screen
 A virtual screen implementation for the Pebble smartwatch.
 
 Use this library to test the layout for large screens (e.g. Pebble Time 2) on smaller screens (e.g. Pebble Time).
 
 There are two modes available:
 
-1) direct
+1) direct<br>
 The large screen is centered on the position the watch has when the app starts. You can scroll the screen around by moving the watch.
 
-2) auto
+2) auto<br>
 The large screen is autmatically moved to the next corner every second.
 
 To use a virtual screen you just have to use the `Layer` returned by `virtual_screen_init` instead of the root layer you normally use.
