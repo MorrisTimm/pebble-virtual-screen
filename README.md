@@ -14,13 +14,13 @@ The large screen is autmatically moved to the next corner every second.
 To use a virtual screen you just have to use the `Layer` returned by `virtual_screen_init` instead of the root layer you normally use.
 If you use `graphics_capture_frame_buffer` to modify the framebuffer you also have to manually apply the offset returned by `virtual_screen_get_offset`.
 
-You can use the `VIRTUAL_SCREEN` define to determine whether or not the virtual screen is used. The define is set if `virtual_screen.h` is included.
+You can use the `VIRTUAL_SCREEN` define to determine whether or not the virtual screen is used. The define is set if `pebble-virtual-screen.h` is included.
 
 Usage example:
 
     #define EMERY_TEST
     #ifdef EMERY_TEST
-    #include <virtual_screen.h>
+    #include <pebble-virtual-screen/pebble-virtual-screen.h>
     #define VIRTUAL_SCREEN_SIZE_W 200
     #define VIRTUAL_SCREEN_SIZE_H 228
     #define VIRTUAL_SCREEN_MODE VIRTUAL_SCREEN_MODE_AUTO
