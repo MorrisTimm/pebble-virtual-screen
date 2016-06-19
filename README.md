@@ -9,7 +9,7 @@ There are two modes available:
 The large screen is centered on the position the watch has when the app starts. You can scroll the screen around by moving the watch.
 
 2) auto<br>
-The large screen is autmatically moved to the next corner every second.
+The large screen is autmatically moved to the next corner every second. Use this for testing in the emulator.
 
 To use a virtual screen you just have to use the `Layer` returned by `virtual_screen_init` instead of the root layer you normally use.
 If you use `graphics_capture_frame_buffer` to modify the framebuffer you also have to manually apply the offset returned by `virtual_screen_get_offset`.
@@ -18,13 +18,7 @@ You can use the `VIRTUAL_SCREEN` define to determine whether or not the virtual 
 
 Usage example:
 
-    #define EMERY_TEST
-    #ifdef EMERY_TEST
     #include <pebble-virtual-screen/pebble-virtual-screen.h>
-    #define VIRTUAL_SCREEN_SIZE_W 200
-    #define VIRTUAL_SCREEN_SIZE_H 228
-    #define VIRTUAL_SCREEN_MODE VIRTUAL_SCREEN_MODE_AUTO
-    #endif // EMERY_TEST
 
     static void my_window_load(Window *window) {
       Layer* root_layer = window_get_root_layer(window);
@@ -32,7 +26,7 @@ Usage example:
 
     #ifdef VIRTUAL_SCREEN
       Layer* real_root = root_layer;
-      root_layer = virtual_screen_init(root_layer_bounds, GSize(VIRTUAL_SCREEN_SIZE_W, VIRTUAL_SCREEN_SIZE_H), VIRTUAL_SCREEN_MODE);
+      root_layer = virtual_screen_init(root_layer_bounds, VIRTUAL_SCREEN_SIZE_EMERY, VIRTUAL_SCREEN_MODE_AUTO);
       root_layer_bounds = layer_get_bounds(root_layer);
     #endif // VIRTUAL_SCREEN
 
@@ -52,4 +46,3 @@ Usage example:
       layer_add_child(real_root, root_layer);
     #endif // VIRTUAL_SCREEN
     }
-    
