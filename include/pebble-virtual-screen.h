@@ -9,7 +9,12 @@
 
 typedef enum {
   VIRTUAL_SCREEN_MODE_DIRECT,
-  VIRTUAL_SCREEN_MODE_AUTO
+  VIRTUAL_SCREEN_MODE_AUTO,
+  VIRTUAL_SCREEN_MODE_CENTERED,
+  VIRTUAL_SCREEN_MODE_TOP_LEFT,
+  VIRTUAL_SCREEN_MODE_TOP_RIGHT,
+  VIRTUAL_SCREEN_MODE_BOTTOM_LEFT,
+  VIRTUAL_SCREEN_MODE_BOTTOM_RIGHT
 } VirutalScreenMode;
 
 Layer* virtual_screen_init(GRect screen_bounds, GSize virtual_size, VirutalScreenMode virtual_screen_mode);

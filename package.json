@@ -1,7 +1,7 @@
 {
   "name": "pebble-virtual-screen",
   "author": "Morris Timm <pebble@timm.tc>",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "files": ["dist.zip"],
   "keywords": ["pebble-package"],
   "description": "A virtual screen implementation for the Pebble smartwatch.",

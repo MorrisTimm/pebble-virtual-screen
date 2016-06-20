@@ -61,13 +61,47 @@ static void prv_auto_callback(void* data) {
   s_timer = app_timer_register(VIRTUAL_SCREEN_UPDATE_AUTO_TIMEOUT_MS, prv_auto_callback, data);
 }
 
+static void prv_corner_callback(void* data) {
+  VirutalScreenMode mode = (VirutalScreenMode)data;
+  static int pos[5][2] = {{0, 0}, {0, 0}, {0, 0}, {0, 0}, {0, 0}};
+  pos[0][0] = -s_center_point.x;
+  pos[0][1] = -s_center_point.y;
+  pos[2][0] = pos[3][0] = -s_max_point.x;
+  pos[3][1] = pos[4][1] = -s_max_point.y;
+  uint8_t curr_pos = 0; // VIRTUAL_SCREEN_MODE_CENTERED
+  switch(mode) {
+    case VIRTUAL_SCREEN_MODE_BOTTOM_LEFT: {
+      ++curr_pos;
+      // no break
+    }
+    case VIRTUAL_SCREEN_MODE_BOTTOM_RIGHT: {
+      ++curr_pos;
+      // no break
+    }
+    case VIRTUAL_SCREEN_MODE_TOP_RIGHT: {
+      ++curr_pos;
+      // no break
+    }
+    case VIRTUAL_SCREEN_MODE_TOP_LEFT: {
+      ++curr_pos;
+      // no break
+    }
+    default: break;
+  }
+  s_accel_point = GPoint(pos[curr_pos][0], pos[curr_pos][1]);
+  GRect bounds = layer_get_bounds(s_layer);
+  bounds.origin = s_accel_point;
+  layer_set_bounds(s_layer, bounds);
+  layer_mark_dirty(s_layer);
+}
+
 Layer* virtual_screen_init( GRect screen_bounds, GSize virtual_size,
                             VirutalScreenMode virtual_screen_mode) {
   s_max_point = GPoint(virtual_size.w-screen_bounds.size.w, virtual_size.h-screen_bounds.size.h);
+  s_center_point = GPoint(s_max_point.x/2, s_max_point.y/2);
   
   switch(virtual_screen_mode) {
     case VIRTUAL_SCREEN_MODE_DIRECT: {
-      s_center_point = GPoint(s_max_point.x/2, s_max_point.y/2);
       s_accel_point = s_center_point;
     
       AccelData accel_data;
@@ -79,6 +113,14 @@ Layer* virtual_screen_init( GRect screen_bounds, GSize virtual_size,
     }
     case VIRTUAL_SCREEN_MODE_AUTO: {
       s_timer = app_timer_register(VIRTUAL_SCREEN_UPDATE_AUTO_TIMEOUT_MS, prv_auto_callback, NULL);
+      break;
+    }
+    case VIRTUAL_SCREEN_MODE_CENTERED:
+    case VIRTUAL_SCREEN_MODE_TOP_LEFT:
+    case VIRTUAL_SCREEN_MODE_TOP_RIGHT:
+    case VIRTUAL_SCREEN_MODE_BOTTOM_LEFT:
+    case VIRTUAL_SCREEN_MODE_BOTTOM_RIGHT: {
+      s_timer = app_timer_register(10, prv_corner_callback, (void*)virtual_screen_mode);
       break;
     }
   }
